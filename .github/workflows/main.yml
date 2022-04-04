@@ -12,7 +12,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - id: issue
-        uses: blake-r/gha-jira-issue-get@${{ github.event.pull_request.head.ref }}
+        uses: blake-r/gha-jira-issue-get@initial
         with:
           jira_url: ${{ secrets.TEST_JIRA_URL }}
           jira_pat: ${{ secrets.TEST_JIRA_PAT }}
