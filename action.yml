@@ -1,0 +1,40 @@
+name: 'Retrieve Jira Server Issue'
+description: 'Download Jira Server issue in the JSON format.'
+inputs:
+  jira_url:
+    description: 'Jira Server base URL'
+    required: true
+  jira_pat:
+    description: 'Jira Personal Access Token'
+    required: true
+  issue_key:
+    description: 'Issue key'
+    required: true
+  issue_fields:
+    description: 'Comma separated fields to retrieve'
+    required: false
+  output_filename:
+    description: 'Filename where issue data will be stored'
+    required: true
+    default: 'issue.json'
+outputs:
+  filename:
+    description: 'Filename where issue JSON stored'
+    value: '${{ inputs.output_filename }}'
+runs:
+  using: composite
+  steps:
+    - shell: bash
+      run: |
+        http_code=$( \
+          curl -s \
+            -o'${{ inputs.output_filename }}' \
+            -w'%{http_code}' \
+            -H'Authorization: Bearer ${{ inputs.jira_pat }}' \
+            -H'Content-Type: application/json' \
+            '${{ inputs.jira_url }}/rest/api/2/issue/${{ inputs.issue_key }}?fields=${{ inputs.fields }}' \
+        )
+        if [ "$http_code" != "200" ]; then
+          cat '${{ inputs.output_filename }}'
+          exit 1
+        fi
