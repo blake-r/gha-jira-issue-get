@@ -1,11 +1,3 @@
-# Jira Server Issue Get
-
-Downloads Jira issue in the JSON format.
-
-
-## Example
-
-```
 on:
   - pull_request:
       types:
@@ -27,4 +19,3 @@ jobs:
           issue_key: gbl-1
       - shell: bash
         run: test $(jq -r '.fields.status.name' '%{{ steps.issue.filename }}') = "Done"
-```
