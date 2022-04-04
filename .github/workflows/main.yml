@@ -6,9 +6,9 @@ on:
       - synchronize
 
 jobs:
-  gha-test:
+  check:
     runs-on: ubuntu-latest
-    name: 'GitHub Action Test'
+    name: 'Check'
     steps:
       - uses: actions/checkout@v3
       - id: issue

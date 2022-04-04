@@ -23,11 +23,9 @@ outputs:
     value: '${{ inputs.output_filename }}'
 runs:
   using: composite
-  defaults:
-    run:
-      shell: bash
   steps:
-    - run: \
+    - shell: bash
+      run: \
         http_code=$(\
           curl -s \
             -o'${{ inputs.output_filename }}' \
