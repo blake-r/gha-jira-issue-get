@@ -26,13 +26,13 @@ runs:
   steps:
     - shell: bash
       run: |
-        http_code=$(\
+        http_code=$( \
           curl -s \
             -o'${{ inputs.output_filename }}' \
             -w'%{http_code}' \
             -H'Authorization: Bearer ${{ inputs.jira_pat }}' \
             -H'Content-Type: application/json' \
-            '${{ inputs.jira_url }}/rest/api/2/issue/${{ inputs.key }}?fields=${{ inputs.fields }}' \
+            '${{ inputs.jira_url }}/rest/api/2/issue/${{ inputs.issue_key }}?fields=${{ inputs.fields }}' \
         )
         if [ "$http_code" != "200" ]; then
           cat '${{ inputs.output_filename }}'
