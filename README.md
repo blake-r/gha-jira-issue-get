@@ -26,5 +26,5 @@ jobs:
           jira_pat: ${{ secrets.TEST_JIRA_PAT }}
           issue_key: gbl-1
       - shell: bash
-        run: test $(jq -r '.fields.status.name' '%{{ steps.issue.filename }}') = "Done"
+        run: test "$(jq -r '.fields.status.name' '%{{ steps.issue.filename }}')" = "Done"
 ```
